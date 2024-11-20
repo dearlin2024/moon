@@ -217,5 +217,5 @@ func registerMetricRoute(httpSrv *http.Server, datasourceService *datasource.Ser
 
 func registerDataSourceRoute(httpSrv *http.Server, datasourceService *datasource.Service) {
 	datasourceRoute := httpSrv.Route("/v1")
-	datasourceRoute.POST("/datasource/health", datasourceService.DataSourceProxy())
+	datasourceRoute.GET("/datasource/health", datasourceService.DataSourceProxy())
 }
