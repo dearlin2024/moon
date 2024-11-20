@@ -143,6 +143,7 @@ func (s *Service) DataSourceProxy() http.HandlerFunc {
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
+		ctx.Request().Method = "GET"
 		if !isValidURL(in.Url) {
 			return merr.ErrorAlert("数据源地址错误，请检查")
 		}
@@ -303,6 +304,7 @@ func (s *Service) proxy(ctx http.Context, to string) error {
 		}
 		w.Header().Set(k, v[0])
 	}
+	w.WriteHeader(resp.StatusCode)
 	_, err = io.Copy(w, resp.Body)
 	return err
 }
